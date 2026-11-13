@@ -1,0 +1,83 @@
+{
+  "name": "docsuite",
+  "productName": "DocSuite",
+  "version": "0.1.0",
+  "description": "Local-first, fully offline document suite (PDF, spreadsheets, documents, slides)",
+  "private": true,
+  "main": "./out/main/index.js",
+  "scripts": {
+    "dev": "electron-vite dev",
+    "build": "electron-vite build",
+    "start": "electron-vite preview",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "smoke": "electron-vite build && engine\\.venv\\Scripts\\python scripts/make_samples.py .smoke && electron -r ./scripts/smoke.cjs . .smoke",
+    "engine:setup": "python -m venv engine/.venv && engine\\.venv\\Scripts\\python -m pip install -r engine/requirements.txt -r engine/requirements-dev.txt",
+    "engine:test": "engine\\.venv\\Scripts\\python -m pytest engine/tests -q",
+    "engine:freeze": "powershell -ExecutionPolicy Bypass -File scripts/build_engine.ps1",
+    "pack": "npm run build && electron-builder --win --dir",
+    "dist": "npm run engine:freeze && npm run build && electron-builder --win nsis"
+  },
+  "devDependencies": {
+    "@tiptap/extension-highlight": "^3.33.1",
+    "@tiptap/extension-image": "^3.33.1",
+    "@tiptap/extension-table": "^3.33.1",
+    "@tiptap/extension-text-align": "^3.33.1",
+    "@tiptap/extension-text-style": "^3.33.1",
+    "@tiptap/pm": "^3.33.1",
+    "@tiptap/react": "^3.33.1",
+    "@tiptap/starter-kit": "^3.33.1",
+    "@types/node": "^26.6.6",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@univerjs/preset-sheets-conditional-formatting": "^1.4.0",
+    "@univerjs/preset-sheets-core": "^1.4.0",
+    "@univerjs/preset-sheets-data-validation": "^1.4.0",
+    "@univerjs/preset-sheets-filter": "^1.4.0",
+    "@univerjs/preset-sheets-find-replace": "^1.4.0",
+    "@univerjs/preset-sheets-sort": "^1.4.0",
+    "@univerjs/presets": "^1.4.0",
+    "@vitejs/plugin-react": "^6.3.0",
+    "echarts": "^6.1.0",
+    "electron": "^45.3.0",
+    "electron-builder": "^26.18.0",
+    "electron-vite": "^6.0.0",
+    "konva": "^10.9.1",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "react-konva": "^19.3.2",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.8"
+  },
+  "author": "Khaja Moinuddin",
+  "license": "MIT",
+  "build": {
+    "appId": "com.docsuite.app",
+    "productName": "DocSuite",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "out/**/*",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "engine/dist/docsuite-engine",
+        "to": "engine"
+      }
+    ],
+    "asar": true,
+    "publish": null,
+    "win": {
+      "target": [
+        "nsis"
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true
+    }
+  }
+}

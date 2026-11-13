@@ -1,0 +1,15 @@
+.sheets-body { position: relative; display: flex; height: 100%; }
+.sheets-grid { flex: 1; min-width: 0; height: 100%; user-select: text; }
+.sheets-body > .empty { flex: 1; }
+
+.chart-panel { width: 340px; flex: none; overflow-y: auto; padding: 14px; display: flex; flex-direction: column; gap: 10px; background: var(--surface); border-left: 1px solid var(--border); }
+.chart-panel header { display: flex; align-items: center; justify-content: space-between; }
+.chart-panel h3 { font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.chart-panel .small { font-size: 12px; }
+.chart-add { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.chart-add .btn { justify-content: center; }
+.chart-card { display: flex; flex-direction: column; gap: 6px; padding: 10px; border: 1px solid var(--border); border-radius: var(--radius); }
+.chart-head { display: flex; align-items: center; gap: 6px; }
+.chart-head input { flex: 1; min-width: 0; height: 28px; padding: 0 8px; border: 1px solid var(--border); border-radius: 5px; background: var(--bg); user-select: text; }
+.chart-head select { height: 28px; border: 1px solid var(--border); border-radius: 5px; background: var(--surface); color: var(--text); }
+.chart-canvas { width: 100%; height: 220px; }

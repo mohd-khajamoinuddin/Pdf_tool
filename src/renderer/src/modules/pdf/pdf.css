@@ -1,0 +1,70 @@
+.pdf-root { height: 100%; }
+.pdf-work { display: flex; flex-direction: column; height: 100%; }
+
+/* ---- editing tools row */
+.pdf-tools { display: flex; align-items: center; gap: 2px; padding: 6px 20px; background: var(--surface); border-bottom: 1px solid var(--border); }
+.pdf-tools .tool { display: inline-flex; align-items: center; justify-content: center; gap: 6px; height: 30px; min-width: 30px; padding: 0 6px; border: 1px solid transparent; border-radius: 6px; background: none; color: var(--text); font-weight: 500; white-space: nowrap; }
+.pdf-tools .tool.wide { padding: 0 10px; }
+.pdf-tools .tool:hover:not(:disabled) { background: var(--surface-2); }
+.pdf-tools .tool.active { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
+.pdf-tools .tool:disabled { opacity: 0.4; }
+.swatches { display: flex; gap: 4px; padding: 0 4px; }
+.swatch { width: 18px; height: 18px; padding: 0; border: 2px solid var(--surface); border-radius: 50%; box-shadow: 0 0 0 1px var(--border); }
+.swatch.active { box-shadow: 0 0 0 2px var(--accent); }
+.pdf-tools .mini { display: inline-flex; align-items: center; gap: 4px; margin-left: 6px; font-size: 12px; color: var(--muted); }
+.pdf-tools select { height: 26px; padding: 0 4px; border: 1px solid var(--border); border-radius: 5px; background: var(--surface); color: var(--text); font-size: 12px; }
+.zoom-label { width: 42px; text-align: center; font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+
+/* ---- page organiser */
+.pdf-layout { flex: 1; min-height: 0; display: grid; grid-template-columns: 176px 1fr 232px; }
+.pdf-thumbs { overflow-y: auto; padding: 12px; display: flex; flex-direction: column; gap: 10px; background: var(--surface); border-right: 1px solid var(--border); }
+.pdf-thumb { padding: 6px; border: 2px solid transparent; border-radius: 6px; }
+.pdf-thumb:hover { background: var(--surface-2); }
+.pdf-thumb.selected { border-color: var(--accent); background: var(--accent-soft); }
+.pdf-thumb.drop { border-color: var(--accent); border-style: dashed; }
+.pdf-thumb-page { position: relative; display: block; width: 100%; aspect-ratio: 1 / 1.3; padding: 0; border: 0; background: var(--paper); box-shadow: 0 0 0 1px var(--border); overflow: hidden; }
+.pdf-thumb-page img { display: block; width: 100%; transition: transform 0.15s; }
+.pdf-thumb-marks { position: absolute; top: 4px; right: 4px; min-width: 18px; padding: 0 5px; border-radius: 9px; background: var(--accent); color: var(--on-accent); font-size: 11px; font-weight: 600; line-height: 18px; }
+.pdf-thumb-bar { display: flex; align-items: center; gap: 1px; margin-top: 4px; }
+.pdf-thumb-num { flex: 1; font-size: 11px; color: var(--muted); }
+.pdf-thumb-bar button { display: grid; place-items: center; width: 22px; height: 22px; padding: 0; border: 0; border-radius: 4px; background: none; color: var(--muted); opacity: 0; }
+.pdf-thumb:hover .pdf-thumb-bar button, .pdf-thumb.selected .pdf-thumb-bar button, .pdf-thumb-bar button:focus-visible { opacity: 1; }
+.pdf-thumb-bar button:hover:not(:disabled) { background: var(--surface); color: var(--text); }
+.pdf-thumb-bar button:disabled { opacity: 0.25 !important; }
+
+/* ---- page canvas */
+.pdf-stage { overflow: auto; padding: 24px; background: var(--canvas); }
+.pdf-sheet-box { position: relative; margin: 0 auto; }
+.pdf-sheet { position: absolute; background: var(--paper); box-shadow: var(--shadow); transform-origin: center; }
+.pdf-sheet img { display: block; width: 100%; height: 100%; transition: opacity 0.1s; }
+.pdf-sheet img.stale { opacity: 0.45; }
+.pdf-overlay { position: absolute; inset: 0; width: 100%; height: 100%; touch-action: none; cursor: crosshair; }
+.pdf-overlay.tool-select { cursor: default; }
+.pdf-overlay.tool-text { cursor: text; }
+.pdf-overlay.tool-select [data-id] { cursor: move; }
+/* While a drawing tool is active, existing marks must not swallow the pointer. */
+.pdf-overlay:not(.tool-select) [data-id] { pointer-events: none; }
+.pdf-text { font-family: Arial, Helvetica, sans-serif; white-space: pre; user-select: none; }
+.pdf-outline rect { fill: none; stroke: #2e6fdb; stroke-width: 1; stroke-dasharray: 4 3; pointer-events: none; vector-effect: non-scaling-stroke; }
+.pdf-outline circle { fill: #fff; stroke: #2e6fdb; stroke-width: 1.5; cursor: nwse-resize !important; vector-effect: non-scaling-stroke; }
+.pdf-typing { position: absolute; padding: 0; border: 1px dashed #2e6fdb; outline: none; resize: none; overflow: hidden; background: rgb(255 255 255 / 0.85); font-family: Arial, Helvetica, sans-serif; white-space: pre; user-select: text; }
+
+.inspector h3.gap { margin-top: 20px; }
+.inspector .small { font-size: 12px; margin-bottom: 8px; }
+
+/* ---- signature dialog */
+.sig-dialog { width: 580px; }
+.sig-canvas { width: 100%; aspect-ratio: 520 / 200; border: 1px dashed var(--border); border-radius: 8px; background: #fff; touch-action: none; cursor: crosshair; }
+
+/* ---- digital signatures */
+.pdf-sigs { margin: 0 0 8px; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; font-size: 13px; }
+.pdf-sigs li { display: flex; gap: 8px; }
+.pdf-sigs li.ok .icon { color: var(--ok); }
+.pdf-sigs li.bad .icon { color: var(--danger); }
+.pdf-sigs strong, .pdf-sigs small { display: block; }
+.pdf-sigs small { color: var(--muted); }
+
+/* ---- editing existing text */
+.pdf-overlay.tool-edittext { cursor: default; }
+.pdf-line { fill: rgb(46 111 219 / 0.06); stroke: rgb(46 111 219 / 0.35); stroke-width: 1; stroke-dasharray: 2 2; vector-effect: non-scaling-stroke; cursor: text; }
+.pdf-line:hover { fill: rgb(46 111 219 / 0.16); stroke: #2e6fdb; stroke-dasharray: none; }

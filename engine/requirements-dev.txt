@@ -1,0 +1,2 @@
+pytest>=8.0
+pyinstaller>=6.10     # GPL-2 with bootloader exception - build tool only, output is not GPL
